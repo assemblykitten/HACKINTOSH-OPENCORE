@@ -5,7 +5,7 @@
 | 配置   | 型号                                         |
 | ------ | -------------------------------------------- |
 | CPU    | Intel Core i5-10500                          |
-| 主板   | MSI B460M MORTAR 迫击炮                      |
+| 主板   | MSI B460M MORTAR                             |
 | 内存   | G.Skill 2666 8G\*2                           |
 | 硬盘   | HP SSD EX950 1TB                             |
 | 显卡   | AMD Radeon RX 5500 XT                        |
@@ -17,18 +17,20 @@
 - USB 设备从 S3/S4/S5 唤醒：允许
 - PS/2 鼠标从 S3/S4/S5 唤醒：允许
 - USB 键盘从 S3/S4/S5 唤醒：任意键
-- 集成显卡多显示器：允许
+- 集成显卡多显示器：允许（否则核显硬件解码失效，只使用核显的可以忽略）
 - OC -> CPU 特征 -> Intel 虚拟化技术：允许
 - OC -> CPU 特征 -> Intel VT-D 技术：禁止
 - OC -> CPU 特征 -> CFG 锁定：禁止
 
 ## EFI
 
-OpenCore: 0.6.4
+OpenCore: 0.6.8
 
-macOS Big Sur 11.0.1 (注意: 安装系统时分区格式选择 APFS, 而不是 MacOS 扩展日志式)
+macOS Big Sur 11.1 (注意: 安装系统时分区格式选择 APFS, 而不是 MacOS 扩展日志式)
 
 > PS: 本次 EFI 升级为正式版，非图形界面直接选择 Reset NVRAM 选项，图形界面在选择启动盘时按空格，再选中 Reset NVRAM 选项，(回车键)重置 NVRAM，重置后可能需要在 BIOS 中重新设置磁盘启动优先顺序
+
+## 系统
 
 若使用 4K 显示器，请将 "UIScale" 的值修改为 "Ag==" 以获得最佳 ui 体验
 
@@ -54,9 +56,16 @@ UUID=<UUID> none ntfs rw,noauto
 UUID=<UUID> none msdos rw,noauto
 ```
 
+## Win+Mac 双系统解决 Win 系统时间时差问题
+
+```bash
+Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1
+```
+
 ## 软件
 
 - [Hackintool](https://github.com/headkaze/Hackintool)
+
 - [ProperTree](https://github.com/corpnewt/ProperTree)
 
 ## 资料
